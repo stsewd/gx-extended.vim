@@ -14,6 +14,7 @@ endif
 
 let g:gxext#custom = get(g:, 'gxext#custom', [])
 let g:gxext#load = get(g:, 'gxext#load', [
+      \ 'gitcommit#github',
       \ 'vim#plugin',
       \ 'global#urls',
       \ 'global#gx',
