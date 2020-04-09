@@ -49,3 +49,37 @@ function! s:is_valid(module) abort
     endif
     return 0
 endfunction
+
+
+" Utility functions
+
+" Returns the pos of the first match from pattern that is within column.
+"
+" string: String to search
+" pattern: Regular expression
+" column: The column number from where to get the closest match
+"
+" returns: [start, end]
+" Start and end of the match, or [-1, -1] if there isn't a match.
+function! gxext#match_around(string, pattern, column)
+  let l:end = 0
+  while l:end >= 0 && l:end <= a:column
+    let [l:match, l:start, l:end] = matchstrpos(a:string, a:pattern, l:end)
+
+    let l:end = l:end - 1
+    if a:column >= l:start && a:column <= l:end
+      return [l:start, l:end]
+    endif
+  endwhile
+  return [-1, -1]
+endfunction
+
+
+" Same as 'gxext#match_around', but it returns the matched string
+function! gxext#matchstr_around(string, pattern, column)
+  let [l:start, l:end] = gxext#match_around(a:string, a:pattern, a:column)
+  if l:start <= -1 || l:end <= -1
+    return ''
+  endif
+  return a:string[l:start:l:end]
+endfunction
