@@ -21,20 +21,31 @@ Plug 'stsewd/gx-extended.vim'
 
 ## Available providers
 
-### global
+Providers with the `global` file type work across all file types.
 
-Providers available in all file types.
+### global#urls
 
-- `global#urls`: Open links without an explicit protocol
-   * `google.com` will open `https://google.com`
-- `global#gx`: Mimics the original `gx` command
+Open links without an explicit protocol.
 
-### vim
+- `google.com` will open `https://google.com`
 
-- `vim#plugin`: Open the GitHub page of the plugin under the cursor
-  * `Plug stsewd/fzf-checkout.vim` will open `https://github.com/stsewd/fzf-checkout.vim`
+### global#gx
 
-### TODO
+Mimics the original `gx` command.
+
+### vim#plugin
+
+Open the GitHub page of the plugin under the cursor.
+
+- `Plug stsewd/fzf-checkout.vim` will open `https://github.com/stsewd/fzf-checkout.vim`
+
+### gitcommit#github
+
+Open an issue/PR from a git commit message.
+
+-`Fixex #23` will open `https://github.com/user/repo/issues/23`
+
+## TODO
 
 - rst?
 - markdown?
@@ -71,8 +82,10 @@ The order is respected when executing this providers.
 
 ```vim
 let g:gxext#load = [
-      \ 'vim#openplugin',
+      \ 'gitcommit#github',
+      \ 'vim#plugin',
       \ 'global#urls',
+      \ 'global#gx',
       \]
 ```
 
