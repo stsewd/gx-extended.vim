@@ -36,7 +36,7 @@ function! s:execute_modules(modules, mode) abort
       endif
       continue
     catch /E117/
-      echoerr "Unavaliable to find " . 'gxext#' . l:module . '#open()'
+      echoerr 'Unavaliable to find ' . 'gxext#' . l:module . '#open()'
     endtry
   endfor
 endfunction

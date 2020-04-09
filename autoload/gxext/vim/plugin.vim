@@ -2,7 +2,7 @@
 
 let s:pattern = 'Plug\s\+''\([a-zA-Z0-9_.-]\+/[a-zA-Z0-9_.-]\+\)'''
 
-function! gxext#vim#openplugin#open(...)
+function! gxext#vim#plugin#open(...)
   let l:line = getline('.')
   let l:match = matchlist(l:line, s:pattern)
   if !empty(l:match)

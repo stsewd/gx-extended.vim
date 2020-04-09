@@ -14,8 +14,9 @@ endif
 
 let g:gxext#custom = get(g:, 'gxext#custom', [])
 let g:gxext#load = get(g:, 'gxext#load', [
-      \ 'vim#openplugin',
+      \ 'vim#plugin',
       \ 'global#urls',
+      \ 'global#gx',
       \])
 
 let g:loaded_gxext = 1

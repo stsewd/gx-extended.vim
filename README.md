@@ -31,7 +31,7 @@ Providers available in all file types.
 
 ### vim
 
-- `vim#openplugin`: Open the GitHub page of the plugin under the cursor
+- `vim#plugin`: Open the GitHub page of the plugin under the cursor
   * `Plug stsewd/fzf-checkout.vim` will open `https://github.com/stsewd/fzf-checkout.vim`
 
 ### TODO
