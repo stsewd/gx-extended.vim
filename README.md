@@ -6,7 +6,7 @@ Extend `gx` to use it beyond just URLs!
 
 - Open anything under your cursor with several providers per file type
 - Normal and visual mode support
-- Providers that work across all file types
+- Providers that work together across all file types
 - Fall back to the original `gx` command if all providers fail
 - Implement your own providers
 
@@ -18,6 +18,11 @@ Put this in your `init.vim`/`.vimrc`.
 ```vim
 Plug 'stsewd/gx-extended.vim'
 ```
+
+## Usage
+
+Press `gx` on normal or visual mode under,
+the text under the cursor or the selected text will be open by a provider.
 
 ## Available providers
 
