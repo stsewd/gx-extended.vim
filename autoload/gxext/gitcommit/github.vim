@@ -4,7 +4,6 @@ let s:pattern = '#\([0-9]\+\)'
 
 function! gxext#gitcommit#github#open(line, mode)
   let l:line = a:line
-
   if a:mode ==# 'normal'
     let l:line = getline('.')
     let l:pos = getpos('.')[2] - 1
@@ -17,9 +16,37 @@ function! gxext#gitcommit#github#open(line, mode)
   endif
 
   let l:id = l:match[1]
-  let l:user = 'stsewd'
-  let l:repo = 'gx-extended.vim'
-  let l:url = 'https://github.com/stsewd/' . l:user . '/' . l:repo . '/issues/' . l:id
+
+  let l:repo_url = s:get_repo_url()
+  if empty(l:repo_url)
+    return 0
+  endif
+
+  let l:url = l:repo_url . '/issues/' . l:id
   call netrw#BrowseX(l:url, 0)
   return 1
+endfunction
+
+
+" Try to get the URL from the repository using 'hub' or using fugitive.
+function! s:get_repo_url()
+  let l:hub = 'hub'
+  if !executable(l:hub)
+    let l:repo = system(l:hub . ' browse -u')
+    let l:repo = substitute(l:repo, '\n', '', 'g')
+    return l:repo
+  endif
+
+  if exists('*FugitiveRemoteUrl')
+    let l:remote = FugitiveRemoteUrl()
+    let l:pattern_ssh = '^git@\([a-z0-9_.-]\+\):\([a-z0-9_.-]\+/[a-z0-9_.-]\+\)$'
+    let l:match = matchlist(l:remote, l:pattern_ssh)
+    if !empty(l:match)
+      let l:domain = l:match[1]
+      let l:name = l:match[2]
+      return 'https://' . l:domain . '/' . l:name
+    endif
+    return l:remote
+  endif
+  return ''
 endfunction
