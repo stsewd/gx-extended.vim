@@ -21,7 +21,7 @@ Plug 'stsewd/gx-extended.vim'
 
 ## Usage
 
-Press `gx` on normal or visual mode under,
+Press `gx` on normal or visual mode,
 the text under the cursor or the selected text will be open by a provider.
 
 ## Available providers
@@ -48,7 +48,7 @@ Open the GitHub page of the plugin under the cursor.
 
 Open an issue/PR from a git commit message.
 
--`Fixex #23` will open `https://github.com/user/repo/issues/23`
+-`Fixes #23` will open `https://github.com/user/repo/issues/23`
 
 ## TODO
 
