@@ -46,7 +46,7 @@ Opens an issue/PR from a git commit message with the `#xxx` pattern.
 
 - `Fixes #23` will open `https://github.com/user/repo/issues/23`
 
-Note: you need to have installed [`hub`](https://github.com/github/hub) (recommended) or
+**Note:** you need to have installed [`hub`](https://github.com/github/hub) (recommended) or
 [`fugitive`](https://github.com/tpope/vim-fugitive).
 
 ### markdown#link
@@ -55,8 +55,8 @@ Opens Markdown links.
 
 - `[link](https://google.com)` will open `https://google.com`
 
-Note: If you have [vim-markdown](https://github.com/plasticboy/vim-markdown) installed
-(it's include in [polyglot](https://github.com/sheerun/vim-polyglot)),
+**Note:** If you have [vim-markdown](https://github.com/plasticboy/vim-markdown) installed
+(it's included in [polyglot](https://github.com/sheerun/vim-polyglot)),
 you'll need to [disable the default key mappings](https://github.com/plasticboy/vim-markdown#disable-default-key-mappings),
 since that plugin remaps `gx` by default.
 
@@ -136,10 +136,10 @@ The argumente passed to the function are:
 - line: `extend('<cfile>')` if mode is `normal` or the selection from the first line if mode is `visual`
 - mode: `normal` or `visual`
 
-Note: these argumente can be useful, but aren't required to be used.
+**Note:** these argumente can be useful, but aren't required to be used.
 You can get the information from the current line or buffer using any of the Vim builtin functions.
 
-Note: If you want your function to be called over all file types, use `global` as language.
+**Note:** If you want your function to be called over all file types, use `global` as language.
 
 See [autoload/gxext/](autoload/gxext/) for examples.
 
