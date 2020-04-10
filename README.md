@@ -40,6 +40,15 @@ Opens links with/without an explicit protocol.
 
 Mimics the original `gx` command.
 
+### gitcommit#github
+
+Opens an issue/PR from a git commit message with the `#xxx` pattern.
+
+- `Fixes #23` will open `https://github.com/user/repo/issues/23`
+
+Note: you need to have installed [`hub`](https://github.com/github/hub) (recommended) or
+[`fugitive`](https://github.com/tpope/vim-fugitive).
+
 ### markdown#link
 
 Opens Markdown links.
@@ -56,15 +65,6 @@ since that plugin remaps `gx` by default.
 Opens the GitHub page of the plugin under the cursor.
 
 - `Plug stsewd/fzf-checkout.vim` will open `https://github.com/stsewd/fzf-checkout.vim`
-
-### gitcommit#github
-
-Opens an issue/PR from a git commit message with the `#xxx` pattern.
-
-- `Fixes #23` will open `https://github.com/user/repo/issues/23`
-
-Note: you need to have installed [`hub`](https://github.com/github/hub) (recommended) or
-[`fugitive`](https://github.com/tpope/vim-fugitive).
 
 ## TODO
 
@@ -104,10 +104,10 @@ The order is respected when executing these providers.
 
 ```vim
 let g:gxext#providers = {
+      \ 'global': ['global#urls', 'global#gx'],
+      \ 'gitcommit': ['gitcommit#github'],
       \ 'markdown': ['markdown#link'],
       \ 'vim': ['vim#plugin'],
-      \ 'gitcommit': ['gitcommit#github'],
-      \ 'global': ['global#urls', 'global#gx'],
       \}
 ```
 

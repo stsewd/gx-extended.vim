@@ -15,10 +15,10 @@ endif
 let g:gxext#debug = get(g:, 'gxext#debug', 0)
 let g:gxext#custom_providers = get(g:, 'gxext#custom_providers', {})
 let g:gxext#providers = get(g:, 'gxext#providers', {
+      \ 'global': ['global#urls', 'global#gx'],
+      \ 'gitcommit': ['gitcommit#github'],
       \ 'markdown': ['markdown#link'],
       \ 'vim': ['vim#plugin'],
-      \ 'gitcommit': ['gitcommit#github'],
-      \ 'global': ['global#urls', 'global#gx'],
       \})
 
 let g:loaded_gxext = 1
