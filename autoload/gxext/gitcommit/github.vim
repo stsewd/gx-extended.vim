@@ -1,6 +1,6 @@
-" Handles #xxx to open the PR/issue on GitHub
+" Handles 'Text #xxx' to open the PR/issue on GitHub
 
-let s:pattern = '#\([0-9]\+\)'
+ let s:pattern = '\(\w\+\s\+\)\?#\([0-9]\+\)'
 
 function! gxext#gitcommit#github#open(line, mode)
   let l:line = a:line
@@ -15,7 +15,7 @@ function! gxext#gitcommit#github#open(line, mode)
     return 0
   endif
 
-  let l:id = l:match[1]
+  let l:id = l:match[2]
 
   let l:repo_url = s:get_repo_url()
   if empty(l:repo_url)
