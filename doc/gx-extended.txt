@@ -1,0 +1,216 @@
+*gx-extended.txt* Extend `gx` to use it beyond just URLs!
+
+Author:  Santos Gallegos <https://github.com/stsewd>
+License: MIT
+Version: 0.1
+Repo: https://github.com/stsewd/gx-extended.vim
+
+Note: this plugin is still under development a lot of things may change!
+
+==============================================================================
+
+CONTENT                                                          *gx-extended*
+                                                             *gx-extended-toc*
+
+- Features..............................................|gx-extended-features|
+- Usage....................................................|gx-extended-usage|
+- Providers............................................|gx-extended-providers|
+  - global#urls
+  - global#gx
+  - gitcommit#github
+  - markdown#link
+  - vim#plugin
+- Mappings..............................................|gx-extended-mappings|
+- Settings..............................................|gx-extended-settings|
+- Writing your own provider................|gx-extended-writing-your-provider|
+- FAQ........................................................|gx-extended-faq|
+
+==============================================================================
+
+FEATURES                                                *gx-extended-features*
+
+- Open anything under your cursor with several providers per file type
+- Normal and visual mode support
+- Providers that work together across all file types
+- Fall back to the original `gx` command if all providers fail
+- Implement your own providers
+
+==============================================================================
+
+USAGE                                                      *gx-extended-usage*
+
+Press `gx` on normal or visual mode,
+the text under the cursor or the selected text will be open by a provider.
+
+==============================================================================
+
+PROVIDERS                                              *gx-extended-providers*
+
+Providers with the `global` file type work across all file types.
+
+
+                                                    *gxext#global#urls#open()*
+global#urls~
+
+Opens links with/without an explicit protocol. Examples:
+
+- A cursor under `google.com` will open `https://google.com`
+
+------------------------------------------------------------------------------
+
+                                                      *gxext#global#gx#open()*
+global#gx~
+
+Mimics the original `gx` command.
+
+------------------------------------------------------------------------------
+
+                                               *gxext#gitcommit#github#open()*
+gitcommit#github~
+
+Opens an issue/PR from a git commit message. Examples:
+
+- A cursor under `Fixes #23` will open `https://github.com/user/repo/issues/23`
+
+Note:
+
+  You need to have installed `hub` (https://github.com/github/hub) (recommended),
+  or `tpope/vim-fugitive`.
+
+------------------------------------------------------------------------------
+
+                                                  *gxext#markdown#link#open()*
+markdown#link~
+
+Opens Markdown links. Examples:
+
+- A cursor under `[link](https://google.com)` will open `https://google.com`
+
+Note:
+
+  If you have `plasticboy/vim-markdown` installed
+  (it's included in `sheerun/vim-polyglot`)
+  you'll need to disable the default key mappings,
+  since that plugin remaps `gx` by default.
+
+------------------------------------------------------------------------------
+
+                                                     *gxext#vim#plugin#open()*
+vim#plugin~
+
+Opens the GitHub page of the plugin under the cursor. Examples:
+
+- A cursor under `Plug stsewd/fzf-checkout.vim`
+  will open `https://github.com/stsewd/fzf-checkout.vim`
+
+==============================================================================
+
+MAPPINGS                                                *gx-extended-mappings*
+                                                        *<Plug>(gxext-normal)*
+                                                        *<Plug>(gxext-visual)*
+
+If you don't define these mappings, `gx` is used by default.
+
+>
+    nmap gx <Plug>(gxext-normal)
+    vmap gx <Plug>(gxext-visual)
+<
+
+==============================================================================
+
+SETTINGS                                                *gx-extended-settings*
+
+
+                                                           *g:gxext#providers*
+g:gxext#providers~
+
+Dictionary of active providers (`language#providername`) per file type.
+The order is respected when executing these providers.
+Specific file type providers have priority over `global` providers.
+
+Default:
+
+>
+    let g:gxext#providers = {
+          \ 'global': ['global#urls', 'global#gx'],
+          \ 'gitcommit': ['gitcommit#github'],
+          \ 'markdown': ['markdown#link'],
+          \ 'vim': ['vim#plugin'],
+          \}
+<
+
+------------------------------------------------------------------------------
+
+                                                    *g:gxext#custom_providers*
+g:gxext#custom_providers~
+
+Dictionary of custom providers (`language#providername`).
+Use it if you want to add more providers without changing the default ones.
+These have priority over the ones listed in |g:gxext#providers|.
+
+Default:
+
+>
+    let g:gxext#custom_providers = {}
+<
+
+==============================================================================
+
+WRITING YOUR OWN PROVIDER                  *gx-extended-writing-your-provider*
+
+List your provider in your `init.vim`/`.vimrc`:
+
+>
+    let g:gxext#custom_providers = {'language': 'language#myprovider'}
+<
+
+Create a file in your Vim runtime path `autoload/gxext/language/myprovider.vim`,
+with a function called `open`:
+
+>
+    " Returns 1 if it was able to parse/open the word under the cursor
+    function! gxext#language#myprovider#open(line, mode)
+      return 0
+    endfunction
+<
+
+Arguments passed to the function:
+
+{line}: `extend('<cfile>')` if mode is {normal},
+        or the selection if mode is {charwise-visual},
+        or the first line from if mode is {linewise-visual}
+
+{mode}: `normal` or `visual`
+
+See https://github.com/stsewd/gx-extended.vim/tree/master/autoload/gxext
+for examples.
+
+Notes:
+
+  - These argumente can be useful, but aren't required to be used.
+  - If you want your function to be called over all file types,
+    use `global` as language.
+  - If you think this provider is something more people will use,
+    feel free to open a PR!
+  - If you have a plugin that integrates with this plugin,
+    open a PR adding it to the list!
+
+==============================================================================
+
+FAQ                                                          *gx-extended-faq*
+
+Do i need this plugin?~
+
+The `gx` functionality is provided by `Netrw` (the file explorer included in Vim).
+You can extend `Netrw`, see |netrw_filehandler|, but it has its limitations:
+
+- You can only extend it to support new suffixes (.doc, .csv, etc).
+- If you override the `gx` mapping, you'll loose the default behavior of `gx`.
+
+If you don't care about any of those things,
+then you are probably fine without this plugin.
+
+==============================================================================
+
+
+vim:tw=78:ts=8:ft=help:norl:
