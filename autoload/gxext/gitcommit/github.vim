@@ -1,4 +1,4 @@
-" Handle #xxx to open the PR/issue on GitHub
+" Handles #xxx to open the PR/issue on GitHub
 
 let s:pattern = '#\([0-9]\+\)'
 

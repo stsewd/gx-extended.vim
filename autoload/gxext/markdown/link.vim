@@ -1,4 +1,4 @@
-" Handle Markdown links [link](https://google.com)
+" Handles Markdown links [link](https://google.com)
 
 let s:pattern = '\[.\+\](\(.\+\))'
 

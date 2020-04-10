@@ -9,7 +9,10 @@ endfunction
 
 
 function! s:get_modules() abort
-  return g:gxext#custom + g:gxext#load
+  return get(g:gxext#custom_providers, &filetype, [])
+        \ + get(g:gxext#custom_providers, 'global', [])
+        \ + get(g:gxext#providers, &filetype, [])
+        \ + get(g:gxext#providers, 'global', [])
 endfunction
 
 
@@ -26,10 +29,9 @@ function! s:execute_modules(modules, mode) abort
   endif
 
   for l:module in a:modules
-    if !s:is_valid(l:module)
-      continue
+    if g:gxext#debug
+      echomsg 'Trying with ' . l:module
     endif
-
     try
       if gxext#{l:module}#open(l:selection, a:mode)
         if g:gxext#debug
@@ -42,15 +44,6 @@ function! s:execute_modules(modules, mode) abort
       echoerr 'Unavaliable to find ' . 'gxext#' . l:module . '#open()'
     endtry
   endfor
-endfunction
-
-
-function! s:is_valid(module) abort
-    let l:ftype = split(a:module, '#')[0]
-    if l:ftype ==# 'global' || l:ftype ==# &filetype
-      return 1
-    endif
-    return 0
 endfunction
 
 

@@ -1,4 +1,4 @@
-" Handle Plug 'user/repo' to open its GitHub repo.
+" Handles Plug 'user/repo' to open its GitHub repo.
 
 let s:pattern = 'Plug\s\+[''"]\([a-zA-Z0-9_.-]\+/[a-zA-Z0-9_.-]\+\)[''"]'
 

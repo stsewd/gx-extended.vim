@@ -32,7 +32,7 @@ Providers with the `global` file type work across all file types.
 
 ### global#urls
 
-Open links with/without an explicit protocol.
+Opens links with/without an explicit protocol.
 
 - `google.com` will open `https://google.com`
 
@@ -42,7 +42,7 @@ Mimics the original `gx` command.
 
 ### markdown#link
 
-Open Markdown links.
+Opens Markdown links.
 
 - `[link](https://google.com)` will open `https://google.com`
 
@@ -53,13 +53,13 @@ since that plugin remaps `gx` by default.
 
 ### vim#plugin
 
-Open the GitHub page of the plugin under the cursor.
+Opens the GitHub page of the plugin under the cursor.
 
 - `Plug stsewd/fzf-checkout.vim` will open `https://github.com/stsewd/fzf-checkout.vim`
 
 ### gitcommit#github
 
-Open an issue/PR from a git commit message with the `#xxx` pattern.
+Opens an issue/PR from a git commit message with the `#xxx` pattern.
 
 - `Fixes #23` will open `https://github.com/user/repo/issues/23`
 
@@ -72,6 +72,7 @@ Note: you need to have installed [`hub`](https://github.com/github/hub) (recomme
 - requirements.txt?
 - Allow plugins to register their own providers?
 - Write tests
+- docs for reading inside vim?
 
 ## Mappings
 
@@ -86,30 +87,28 @@ vmap gx <Plug>(gxext-visual)
 
 Default values are shown in the code blocks.
 
-### g:gxext#custom
+### g:gxext#custom_providers
 
-List of custom providers (`language#providername`).
-The order is respected when executing these providers.
+Dictionary of custom providers (`language#providername`) per file type.
 Use it only if you want to add custom providers without changing the default ones.
-These have priority over the ones listed in `g:gxext#load`.
+These have priority over the ones listed in `g:gxext#providers` and don't override the default ones.
 
 ```vim
-let g:gxext#custom = []
+let g:gxext#custom_providers = {}
 ```
 
-### g:gxext#load
+### g:gxext#providers
 
-List of active providers (`language#providername`).
-The order is respected when executing this providers.
+Dictionary of active providers (`language#providername`) per file type.
+The order is respected when executing these providers.
 
 ```vim
-let g:gxext#load = [
-      \ 'markdown#link',
-      \ 'gitcommit#github',
-      \ 'vim#plugin',
-      \ 'global#urls',
-      \ 'global#gx',
-      \]
+let g:gxext#providers = {
+      \ 'markdown': ['markdown#link'],
+      \ 'vim': ['vim#plugin'],
+      \ 'gitcommit': ['gitcommit#github'],
+      \ 'global': ['global#urls', 'global#gx'],
+      \}
 ```
 
 ## Writing your own provider
@@ -120,7 +119,7 @@ _If you have a plugin that integrates with gx-extended, open a PR adding it to t
 List your provider in your `init.vim`/`.vimrc`:
 
 ```vim
-let g:gxext_custom = ['language#myprovider']
+let g:gxext_custom = {'language': 'language#myprovider'}
 ```
 
 Create a file in your Vim runtime path `autoload/gxext/language/myprovider.vim` with a function called `open`:

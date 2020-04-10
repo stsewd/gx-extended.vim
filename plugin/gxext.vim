@@ -13,13 +13,12 @@ if maparg('gx', 'v') == '' && !hasmapto('<Plug>(gxext-visual)')
 endif
 
 let g:gxext#debug = get(g:, 'gxext#debug', 0)
-let g:gxext#custom = get(g:, 'gxext#custom', [])
-let g:gxext#load = get(g:, 'gxext#load', [
-      \ 'markdown#link',
-      \ 'gitcommit#github',
-      \ 'vim#plugin',
-      \ 'global#urls',
-      \ 'global#gx',
-      \])
+let g:gxext#custom_providers = get(g:, 'gxext#custom_providers', {})
+let g:gxext#providers = get(g:, 'gxext#providers', {
+      \ 'markdown': ['markdown#link'],
+      \ 'vim': ['vim#plugin'],
+      \ 'gitcommit': ['gitcommit#github'],
+      \ 'global': ['global#urls', 'global#gx'],
+      \})
 
 let g:loaded_gxext = 1

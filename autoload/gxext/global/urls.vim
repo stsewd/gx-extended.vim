@@ -1,4 +1,4 @@
-" Handle URLs with/without an explicit protocol.
+" Handles URLs with/without an explicit protocol.
 
 let s:pattern = '^\(https\?://\)\?\([a-z0-9-]\+\.\)\+\([a-z]\+\)\(/.*\)\?$'
 
