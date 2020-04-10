@@ -101,6 +101,7 @@ let g:gxext#custom_providers = {}
 
 Dictionary of active providers (`language#providername`) per file type.
 The order is respected when executing these providers.
+Specific file type providers has priority over `global` providers.
 
 ```vim
 let g:gxext#providers = {
