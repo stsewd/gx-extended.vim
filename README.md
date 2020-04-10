@@ -2,6 +2,8 @@
 
 Extend `gx` to use it beyond just URLs!
 
+**Note: this plugin is still under development a lot of things may change!**
+
 ## Features
 
 - Open anything under your cursor with several providers per file type
@@ -46,15 +48,16 @@ Open the GitHub page of the plugin under the cursor.
 
 ### gitcommit#github
 
-Open an issue/PR from a git commit message.
+Open an issue/PR from a git commit message with the `#xxx` pattern.
 
--`Fixes #23` will open `https://github.com/user/repo/issues/23`
+- `Fixes #23` will open `https://github.com/user/repo/issues/23`
 
 ## TODO
 
 - rst?
 - markdown?
 - requirements.txt?
+- Allow plugins to register their own providers?
 
 ## Mappings
 
@@ -72,7 +75,7 @@ Default values are shown in the code blocks.
 ### g:gxext#custom
 
 List of custom providers (`language#providername`).
-The order is respected when executing this providers.
+The order is respected when executing these providers.
 Use it only if you want to add custom providers without changing the default ones.
 These have priority over the ones listed in `g:gxext#load`.
 
@@ -97,6 +100,7 @@ let g:gxext#load = [
 ## Writing your own provider
 
 _If you think this provider is something more people will use, feel free to open a PR!_
+_If you have a plugin that integrates with gx-extended, open a PR adding it to the list!_
 
 List your provider in your `init.vim`/`.vimrc`:
 

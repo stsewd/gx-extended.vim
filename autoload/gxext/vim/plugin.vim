@@ -1,6 +1,6 @@
-" Handle Plug 'user/repo' to open the GitHub repo.
+" Handle Plug 'user/repo' to open its GitHub repo.
 
-let s:pattern = 'Plug\s\+''\([a-zA-Z0-9_.-]\+/[a-zA-Z0-9_.-]\+\)'''
+let s:pattern = 'Plug\s\+[''"]\([a-zA-Z0-9_.-]\+/[a-zA-Z0-9_.-]\+\)[''"]'
 
 function! gxext#vim#plugin#open(line, mode)
   let l:line = a:line
