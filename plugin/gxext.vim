@@ -12,8 +12,10 @@ if maparg('gx', 'v') == '' && !hasmapto('<Plug>(gxext-visual)')
   vmap gx <Plug>(gxext-visual)
 endif
 
+let g:gxext#debug = get(g:, 'gxext#debug', 0)
 let g:gxext#custom = get(g:, 'gxext#custom', [])
 let g:gxext#load = get(g:, 'gxext#load', [
+      \ 'markdown#link',
       \ 'gitcommit#github',
       \ 'vim#plugin',
       \ 'global#urls',

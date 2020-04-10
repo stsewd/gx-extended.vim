@@ -32,13 +32,24 @@ Providers with the `global` file type work across all file types.
 
 ### global#urls
 
-Open links without an explicit protocol.
+Open links with/without an explicit protocol.
 
 - `google.com` will open `https://google.com`
 
 ### global#gx
 
 Mimics the original `gx` command.
+
+### markdown#link
+
+Open Markdown links.
+
+- `[link](https://google.com)` will open `https://google.com`
+
+Note: If you have [vim-markdown](https://github.com/plasticboy/vim-markdown) installed
+(it's include in [polyglot](https://github.com/sheerun/vim-polyglot)),
+you'll need to [disable the default key mappings](https://github.com/plasticboy/vim-markdown#disable-default-key-mappings),
+since that plugin remaps `gx` by default.
 
 ### vim#plugin
 
@@ -52,12 +63,15 @@ Open an issue/PR from a git commit message with the `#xxx` pattern.
 
 - `Fixes #23` will open `https://github.com/user/repo/issues/23`
 
+Note: you need to have installed [`hub`](https://github.com/github/hub) (recommended) or
+[`fugitive`](https://github.com/tpope/vim-fugitive).
+
 ## TODO
 
 - rst?
-- markdown?
 - requirements.txt?
 - Allow plugins to register their own providers?
+- Write tests
 
 ## Mappings
 
@@ -90,6 +104,7 @@ The order is respected when executing this providers.
 
 ```vim
 let g:gxext#load = [
+      \ 'markdown#link',
       \ 'gitcommit#github',
       \ 'vim#plugin',
       \ 'global#urls',

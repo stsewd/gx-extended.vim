@@ -1,8 +1,8 @@
-" Handle Plug 'user/repo' to open its GitHub repo.
+" Handle Markdown links [link](https://google.com)
 
-let s:pattern = 'Plug\s\+[''"]\([a-zA-Z0-9_.-]\+/[a-zA-Z0-9_.-]\+\)[''"]'
+let s:pattern = '\[.\+\](\(.\+\))'
 
-function! gxext#vim#plugin#open(line, mode)
+function! gxext#markdown#link#open(line, mode)
   let l:line = a:line
   if a:mode ==# 'normal'
     let l:line = getline('.')
@@ -15,7 +15,5 @@ function! gxext#vim#plugin#open(line, mode)
     return 0
   endif
 
-  let l:plugin_name = l:match[1]
-  call netrw#BrowseX('https://github.com/' . l:match[1], 0)
-  return 1
+  return gxext#global#urls#open(l:match[1], 'visual')
 endfunction

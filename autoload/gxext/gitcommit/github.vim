@@ -6,8 +6,8 @@ function! gxext#gitcommit#github#open(line, mode)
   let l:line = a:line
   if a:mode ==# 'normal'
     let l:line = getline('.')
-    let l:pos = getpos('.')[2] - 1
-    let l:line = gxext#matchstr_around(l:line, s:pattern, l:pos)
+    let l:col = col('.') - 1
+    let l:line = gxext#matchstr_around(l:line, s:pattern, l:col)
   endif
 
   let l:match = matchlist(l:line, s:pattern)

@@ -32,6 +32,9 @@ function! s:execute_modules(modules, mode) abort
 
     try
       if gxext#{l:module}#open(l:selection, a:mode)
+        if g:gxext#debug
+          echomsg 'Open with ' . l:module
+        endif
         return
       endif
       continue
