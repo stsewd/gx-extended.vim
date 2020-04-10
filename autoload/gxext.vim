@@ -10,8 +10,8 @@ endfunction
 
 function! s:get_modules() abort
   return get(g:gxext#custom_providers, &filetype, [])
-        \ + get(g:gxext#custom_providers, 'global', [])
         \ + get(g:gxext#providers, &filetype, [])
+        \ + get(g:gxext#custom_providers, 'global', [])
         \ + get(g:gxext#providers, 'global', [])
 endfunction
 
