@@ -13,8 +13,8 @@ if maparg('gx', 'v') == '' && !hasmapto('<Plug>(gxext-visual)')
 endif
 
 let g:gxext#debug = get(g:, 'gxext#debug', 0)
-let g:gxext#custom_providers = get(g:, 'gxext#custom_providers', {})
-let g:gxext#providers = get(g:, 'gxext#providers', {
+let g:gxext#custom_handlers = get(g:, 'gxext#custom_handlers', {})
+let g:gxext#handlers = get(g:, 'gxext#handlers', {
       \ 'global': ['global#urls', 'global#gx'],
       \ 'gitcommit': ['gitcommit#github'],
       \ 'markdown': ['markdown#link'],

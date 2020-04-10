@@ -1,22 +1,22 @@
 function! gxext#normal() abort
-  call s:execute_modules(s:get_modules(), 'normal')
+  call s:execute_handlers(s:get_handlers(), 'normal')
 endfunction
 
 
 function! gxext#visual() abort
-  call s:execute_modules(s:get_modules(), 'visual')
+  call s:execute_handlers(s:get_handlers(), 'visual')
 endfunction
 
 
-function! s:get_modules() abort
-  return get(g:gxext#custom_providers, &filetype, [])
-        \ + get(g:gxext#providers, &filetype, [])
-        \ + get(g:gxext#custom_providers, 'global', [])
-        \ + get(g:gxext#providers, 'global', [])
+function! s:get_handlers() abort
+  return get(g:gxext#custom_handlers, &filetype, [])
+        \ + get(g:gxext#handlers, &filetype, [])
+        \ + get(g:gxext#custom_handlers, 'global', [])
+        \ + get(g:gxext#handlers, 'global', [])
 endfunction
 
 
-function! s:execute_modules(modules, mode) abort
+function! s:execute_handlers(handlers, mode) abort
   if a:mode ==# 'normal'
     let l:selection = expand('<cfile>')
   else
@@ -28,20 +28,20 @@ function! s:execute_modules(modules, mode) abort
     endif
   endif
 
-  for l:module in a:modules
+  for l:handler in a:handlers
     if g:gxext#debug
-      echomsg 'Trying with ' . l:module
+      echomsg 'Trying with ' . l:handler
     endif
     try
-      if gxext#{l:module}#open(l:selection, a:mode)
+      if gxext#{l:handler}#open(l:selection, a:mode)
         if g:gxext#debug
-          echomsg 'Open with ' . l:module
+          echomsg 'Open with ' . l:handler
         endif
         return
       endif
       continue
     catch /E117/
-      echoerr 'Unavaliable to find ' . 'gxext#' . l:module . '#open()'
+      echoerr 'Unavaliable to find ' . 'gxext#' . l:handler . '#open()'
     endtry
   endfor
 endfunction

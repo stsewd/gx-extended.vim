@@ -14,7 +14,7 @@ CONTENT                                                          *gx-extended*
 
 - Features..............................................|gx-extended-features|
 - Usage....................................................|gx-extended-usage|
-- Providers............................................|gx-extended-providers|
+- Handlers..............................................|gx-extended-handlers|
   - global#urls
   - global#gx
   - gitcommit#github
@@ -22,31 +22,31 @@ CONTENT                                                          *gx-extended*
   - vim#plugin
 - Mappings..............................................|gx-extended-mappings|
 - Settings..............................................|gx-extended-settings|
-- Writing your own provider................|gx-extended-writing-your-provider|
+- Writing your own handler..................|gx-extended-writing-your-handler|
 - FAQ........................................................|gx-extended-faq|
 
 ==============================================================================
 
 FEATURES                                                *gx-extended-features*
 
-- Open anything under your cursor with several providers per file type
+- Open anything under your cursor with several handlers per file type
 - Normal and visual mode support
-- Providers that work together across all file types
-- Fall back to the original `gx` command if all providers fail
-- Implement your own providers
+- Handlers that work together across all file types
+- Fall back to the original `gx` command if all handlers fail
+- Implement your own handlers
 
 ==============================================================================
 
 USAGE                                                      *gx-extended-usage*
 
 Press `gx` on normal or visual mode,
-the text under the cursor or the selected text will be open by a provider.
+the text under the cursor or the selected text will be handled by a `handler`.
 
 ==============================================================================
 
-PROVIDERS                                              *gx-extended-providers*
+HANDLERS                                                *gx-extended-handlers*
 
-Providers with the `global` file type work across all file types.
+Handlers with the `global` file type work across all file types.
 
 
                                                     *gxext#global#urls#open()*
@@ -121,17 +121,17 @@ If you don't define these mappings, `gx` is used by default.
 SETTINGS                                                *gx-extended-settings*
 
 
-                                                           *g:gxext#providers*
-g:gxext#providers~
+                                                            *g:gxext#handlers*
+g:gxext#handlers~
 
-Dictionary of active providers (`language#providername`) per file type.
-The order is respected when executing these providers.
-Specific file type providers have priority over `global` providers.
+Dictionary of active handlers (`language#handlername`) per file type.
+The order is respected when executing these handlers.
+Specific file type handlers have priority over `global` handlers.
 
 Default:
 
 >
-    let g:gxext#providers = {
+    let g:gxext#handlers = {
           \ 'global': ['global#urls', 'global#gx'],
           \ 'gitcommit': ['gitcommit#github'],
           \ 'markdown': ['markdown#link'],
@@ -141,35 +141,35 @@ Default:
 
 ------------------------------------------------------------------------------
 
-                                                    *g:gxext#custom_providers*
-g:gxext#custom_providers~
+                                                     *g:gxext#custom_handlers*
+g:gxext#custom_handlers~
 
-Dictionary of custom providers (`language#providername`).
-Use it if you want to add more providers without changing the default ones.
-These have priority over the ones listed in |g:gxext#providers|.
+Dictionary of custom handlers (`language#handlername`).
+Use it if you want to add more handlers without changing the default ones.
+These have priority over the ones listed in |g:gxext#handlers|.
 
 Default:
 
 >
-    let g:gxext#custom_providers = {}
+    let g:gxext#custom_handlers = {}
 <
 
 ==============================================================================
 
-WRITING YOUR OWN PROVIDER                  *gx-extended-writing-your-provider*
+WRITING YOUR OWN HANDLER                    *gx-extended-writing-your-handler*
 
-List your provider in your `init.vim`/`.vimrc`:
+List your handlers in your `init.vim`/`.vimrc`:
 
 >
-    let g:gxext#custom_providers = {'language': 'language#myprovider'}
+    let g:gxext#custom_handlers = {'language': 'language#myhandler'}
 <
 
-Create a file in your Vim runtime path `autoload/gxext/language/myprovider.vim`,
+Create a file in your Vim runtime path `autoload/gxext/language/myhandler.vim`,
 with a function called `open`:
 
 >
     " Returns 1 if it was able to parse/open the word under the cursor
-    function! gxext#language#myprovider#open(line, mode)
+    function! gxext#language#myhandler#open(line, mode)
       return 0
     endfunction
 <
@@ -190,7 +190,7 @@ Notes:
   - These argumente can be useful, but aren't required to be used.
   - If you want your function to be called over all file types,
     use `global` as language.
-  - If you think this provider is something more people will use,
+  - If you think this handler is something more people will use,
     feel free to open a PR!
   - If you have a plugin that integrates with this plugin,
     open a PR adding it to the list!

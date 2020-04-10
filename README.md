@@ -6,11 +6,11 @@ Extend `gx` to use it beyond just URLs!
 
 ## Features
 
-- Open anything under your cursor with several providers per file type
+- Open anything under your cursor with several handlers per file type
 - Normal and visual mode support
-- Providers that work together across all file types
-- Fall back to the original `gx` command if all providers fail
-- Implement your own providers
+- Handlers that work together across all file types
+- Fall back to the original `gx` command if all handlers fail
+- Implement your own handlers
 
 ## Installation
 
@@ -24,14 +24,14 @@ Plug 'stsewd/gx-extended.vim'
 ## Usage
 
 Press `gx` on normal or visual mode,
-the text under the cursor or the selected text will be open by a provider.
+the text under the cursor or the selected text will be handled by a `handler`.
 
 See [`:h gx-extended`](doc/gx-extended.txt)
-for more information about settings and how to write your own provider.
+for more information about settings and how to write your own handler.
 
-## Providers
+## Handlers
 
-Providers with the `global` file type work across all file types.
+Handlers with the `global` file type work across all file types.
 
 ### global#urls
 
@@ -78,5 +78,5 @@ Opens the GitHub page of the plugin under the cursor. Examples:
 
 - ReStructuredText?
 - requirements.txt?
-- Allow plugins to register their own providers?
+- Allow plugins to register their own handlers?
 - Write tests
