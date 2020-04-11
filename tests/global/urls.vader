@@ -1,0 +1,99 @@
+------------
+- Unit tests
+------------
+
+Execute (correct urls normal):
+  AssertEqual 1, gxext#global#urls#open('github.com', 'normal')
+  AssertEqual 1, gxext#global#urls#open('http://github.com', 'normal')
+  AssertEqual 1, gxext#global#urls#open('https://github.com', 'normal')
+  AssertEqual 1, gxext#global#urls#open('api.github.com', 'normal')
+  AssertEqual 1, gxext#global#urls#open('https://api.github.com', 'normal')
+
+Execute (correct urls visual):
+  AssertEqual 1, gxext#global#urls#open('github.com', 'visual')
+  AssertEqual 1, gxext#global#urls#open('http://github.com', 'visual')
+  AssertEqual 1, gxext#global#urls#open('https://github.com', 'visual')
+  AssertEqual 1, gxext#global#urls#open('api.github.com', 'visual')
+  AssertEqual 1, gxext#global#urls#open('https://api.github.com', 'visual')
+
+Execute (incorrect urls normal):
+  AssertEqual 0, gxext#global#urls#open('github', 'normal')
+  AssertEqual 0, gxext#global#urls#open('http', 'normal')
+  AssertEqual 0, gxext#global#urls#open('foo_.com', 'normal')
+
+Execute (incorrect urls visual):
+  AssertEqual 0, gxext#global#urls#open('github', 'visual')
+  AssertEqual 0, gxext#global#urls#open('http', 'visual')
+  AssertEqual 0, gxext#global#urls#open('foo_.com', 'visual')
+  AssertEqual 0, gxext#global#urls#open(' space.com', 'visual')
+  AssertEqual 0, gxext#global#urls#open('space.com ', 'visual')
+
+
+-------------------
+- Integration tests
+-------------------
+
+Given text (any textfile):
+  I'm a link http://google.com
+  I'm a link too google.com
+  I'm a secure link https://google.com
+  Who? github.com or gitlab.com?
+After (clean messages):
+  execute('messages clear')
+
+Do (execute gx on the first line, first word):
+  gx
+Then (it wasn't executed):
+  AssertEqual 'Open with global#gx', trim(execute('0messages'))
+
+Do (execute gx on the first line, third word):
+  2W
+  gx
+Then (it wasn't executed):
+  AssertEqual 'Open with global#gx', trim(execute('0messages'))
+
+Do (execute gx on the link on the first line):
+  3W
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with global#urls', msg[1]
+  AssertEqual 'Opening http://google.com', msg[0]
+
+Do (execute gx on the link on the second line):
+  j4W
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with global#urls', msg[1]
+  AssertEqual 'Opening https://google.com', msg[0]
+
+Do (execute gx on the link on the third line):
+  2j4W5l
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with global#urls', msg[1]
+  AssertEqual 'Opening https://google.com', msg[0]
+
+Do (execute gx on the first link on the fourth line):
+  3jW5l
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with global#urls', msg[1]
+  AssertEqual 'Opening https://github.com', msg[0]
+
+Do (execute gx on the first link on the fourth line):
+  3j3W7l
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with global#urls', msg[1]
+  AssertEqual 'Opening https://gitlab.com', msg[0]
+
+Expect text (text is the same):
+  I'm a link http://google.com
+  I'm a link too google.com
+  I'm a secure link https://google.com
+  Who? github.com or gitlab.com?
