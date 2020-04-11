@@ -13,6 +13,7 @@ if maparg('gx', 'v') == '' && !hasmapto('<Plug>(gxext-visual)')
 endif
 
 let g:gxext#debug = get(g:, 'gxext#debug', 0)
+let g:gxext#dryrun = get(g:, 'gxext#dryrun', 0)
 let g:gxext#custom_handlers = get(g:, 'gxext#custom_handlers', {})
 let g:gxext#handlers = get(g:, 'gxext#handlers', {
       \ 'global': ['global#urls', 'global#gx'],

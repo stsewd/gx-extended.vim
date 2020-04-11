@@ -12,6 +12,6 @@ function! gxext#global#urls#open(line, mode)
   if empty(l:match[1])
     let l:url = 'https://' . l:match[0]
   endif
-  call netrw#BrowseX(l:url, 0)
+  call gxext#browse(l:url)
   return 1
 endfunction

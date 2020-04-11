@@ -79,3 +79,12 @@ function! gxext#matchstr_around(string, pattern, column)
   endif
   return a:string[l:start:l:end]
 endfunction
+
+" Wrapper around netrw#BrowseX to make it easy to test
+function! gxext#browse(url)
+  if g:gxext#dryrun
+    echomsg 'Opening ' . a:url
+  else
+    call netrw#BrowseX(a:url, 0)
+  endif
+endfunction
