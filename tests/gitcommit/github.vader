@@ -1,0 +1,116 @@
+------------
+- Unit tests
+------------
+
+Execute (correct urls visual):
+  AssertEqual 1, gxext#gitcommit#github#open('#23', 'visual')
+  AssertEqual 1, gxext#gitcommit#github#open('Fixes #30', 'visual')
+  AssertEqual 1, gxext#gitcommit#github#open('fixes #30', 'visual')
+  AssertEqual 1, gxext#gitcommit#github#open('#09', 'visual')
+  AssertEqual 1, gxext#gitcommit#github#open('#666', 'visual')
+
+Execute (incorrect urls visual):
+  AssertEqual 0, gxext#global#urls#open('Fixes', 'visual')
+  AssertEqual 0, gxext#global#urls#open('##20', 'visual')
+  AssertEqual 0, gxext#global#urls#open('#2#', 'visual')
+  AssertEqual 0, gxext#global#urls#open('fix#2', 'visual')
+  AssertEqual 0, gxext#global#urls#open('#a', 'visual')
+
+
+-------------------
+- Integration tests
+-------------------
+
+Given gitcommit (a git commit message):
+  A commit message
+  Fix #2
+  Closes #34 and fixes #35
+Before (clean messages):
+  execute('messages clear')
+
+Do (execute gx on the first line, first word):
+  gx
+Then (it wasn't executed):
+  AssertEqual 'Open with global#gx', trim(execute('0messages'))
+
+Do (execute gx on the first line, third word):
+  2W
+  gx
+Then (it wasn't executed):
+  AssertEqual 'Open with global#gx', trim(execute('0messages'))
+
+Do (execute gx on the first word on the second line):
+  j
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with gitcommit#github', msg[1]
+  AssertEqual 'Opening https://github.com/stsewd/sphinx.nvim/issues/2', msg[0]
+
+Do (execute gx on the first white space on the second line):
+  j
+  f\<space>
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with gitcommit#github', msg[1]
+  AssertEqual 'Opening https://github.com/stsewd/sphinx.nvim/issues/2', msg[0]
+
+Do (execute gx on the second word on the second line):
+  jW
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with gitcommit#github', msg[1]
+  AssertEqual 'Opening https://github.com/stsewd/sphinx.nvim/issues/2', msg[0]
+
+Do (execute gx on the second word on the second line):
+  jWl
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with gitcommit#github', msg[1]
+  AssertEqual 'Opening https://github.com/stsewd/sphinx.nvim/issues/2', msg[0]
+
+Do (execute gx on the first word on the third line):
+  2j
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with gitcommit#github', msg[1]
+  AssertEqual 'Opening https://github.com/stsewd/sphinx.nvim/issues/34', msg[0]
+
+Do (execute gx on the second word on the third line):
+  2jW
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with gitcommit#github', msg[1]
+  AssertEqual 'Opening https://github.com/stsewd/sphinx.nvim/issues/34', msg[0]
+
+Do (execute gx on the third word on the third line):
+  2j2W
+  gx
+Then (it wasn't executed):
+  AssertEqual 'Open with global#gx', trim(execute('0messages'))
+
+Do (execute gx on the fourth word on the third line):
+  2j3W
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with gitcommit#github', msg[1]
+  AssertEqual 'Opening https://github.com/stsewd/sphinx.nvim/issues/35', msg[0]
+
+Do (execute gx on the fith word on the third line):
+  2j4W
+  gx
+Then (it was executed!):
+  let msg = split(execute('2messages'), '\n')
+  AssertEqual 'Open with gitcommit#github', msg[1]
+  AssertEqual 'Opening https://github.com/stsewd/sphinx.nvim/issues/35', msg[0]
+
+Expect gitcommit (it's the same):
+  A commit message
+  Fix #2
+  Closes #34 and fixes #35

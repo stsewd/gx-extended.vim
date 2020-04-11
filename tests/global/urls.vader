@@ -38,7 +38,7 @@ Given text (any textfile):
   I'm a link too google.com
   I'm a secure link https://google.com
   Who? github.com or gitlab.com?
-After (clean messages):
+Before (clean messages):
   execute('messages clear')
 
 Do (execute gx on the first line, first word):

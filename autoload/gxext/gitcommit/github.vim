@@ -30,6 +30,10 @@ endfunction
 
 " Try to get the URL from the repository using 'hub' or using fugitive.
 function! s:get_repo_url()
+  if g:gxext#dryrun
+    return 'https://github.com/stsewd/sphinx.nvim'
+  endif
+
   let l:hub = 'hub'
   if !executable(l:hub)
     let l:repo = system(l:hub . ' browse -u')
