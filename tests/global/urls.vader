@@ -8,6 +8,10 @@ Execute (correct urls normal):
   AssertEqual 1, gxext#global#urls#open('https://github.com', 'normal')
   AssertEqual 1, gxext#global#urls#open('api.github.com', 'normal')
   AssertEqual 1, gxext#global#urls#open('https://api.github.com', 'normal')
+  AssertEqual 1, gxext#global#urls#open('https://api.github.com:80', 'normal')
+  AssertEqual 1, gxext#global#urls#open('https://api.github.com:90/foo', 'normal')
+  AssertEqual 1, gxext#global#urls#open('https://hostname:80', 'normal')
+  AssertEqual 1, gxext#global#urls#open('https://hostname', 'normal')
 
 Execute (correct urls visual):
   AssertEqual 1, gxext#global#urls#open('github.com', 'visual')
@@ -15,16 +19,18 @@ Execute (correct urls visual):
   AssertEqual 1, gxext#global#urls#open('https://github.com', 'visual')
   AssertEqual 1, gxext#global#urls#open('api.github.com', 'visual')
   AssertEqual 1, gxext#global#urls#open('https://api.github.com', 'visual')
+  AssertEqual 1, gxext#global#urls#open('https://api.github.com:80', 'visual')
+  AssertEqual 1, gxext#global#urls#open('https://api.github.com:90/foo', 'visual')
+  AssertEqual 1, gxext#global#urls#open('https://hostname:80', 'visual')
+  AssertEqual 1, gxext#global#urls#open('https://hostname', 'visual')
 
 Execute (incorrect urls normal):
   AssertEqual 0, gxext#global#urls#open('github', 'normal')
   AssertEqual 0, gxext#global#urls#open('http', 'normal')
-  AssertEqual 0, gxext#global#urls#open('foo_.com', 'normal')
 
 Execute (incorrect urls visual):
   AssertEqual 0, gxext#global#urls#open('github', 'visual')
   AssertEqual 0, gxext#global#urls#open('http', 'visual')
-  AssertEqual 0, gxext#global#urls#open('foo_.com', 'visual')
   AssertEqual 0, gxext#global#urls#open(' space.com', 'visual')
   AssertEqual 0, gxext#global#urls#open('space.com ', 'visual')
 
