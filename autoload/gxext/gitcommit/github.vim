@@ -35,7 +35,7 @@ function! s:get_repo_url()
   endif
 
   let l:hub = 'hub'
-  if !executable(l:hub)
+  if executable(l:hub)
     let l:repo = system(l:hub . ' browse -u')
     let l:repo = substitute(l:repo, '\n', '', 'g')
     return l:repo
