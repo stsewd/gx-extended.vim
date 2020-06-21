@@ -14,6 +14,16 @@ endif
 
 let g:gxext#debug = get(g:, 'gxext#debug', 0)
 let g:gxext#dryrun = get(g:, 'gxext#dryrun', 0)
+
+if has('mac')
+  let s:opencmd = 'open'
+elseif has('unix')
+  let s:opencmd = 'xdg-open'
+else
+  let s:opencmd = 'gx'
+endif
+let g:gxext#opencmd = get(g:, 'gxext#opencmd', s:opencmd)
+
 let g:gxext#custom_handlers = get(g:, 'gxext#custom_handlers', {})
 let g:gxext#handlers = get(g:, 'gxext#handlers', {
       \ 'global': ['global#urls', 'global#gx'],

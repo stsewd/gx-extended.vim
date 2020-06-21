@@ -121,6 +121,19 @@ If you don't define these mappings, `gx` is used by default.
 SETTINGS                                                *gx-extended-settings*
 
 
+                                                             *g:gxext#opencmd*
+g:gxext#opencmd~
+
+Command used for opening URLs or files.
+Defaults to `open` in Mac, and to `xdg-open` in Linux.
+If `gx` is given, it uses netrw's `gx`.
+
+>
+    let g:gxext#opencmd = 'xdg-open'
+<
+
+------------------------------------------------------------------------------
+
                                                             *g:gxext#handlers*
 g:gxext#handlers~
 

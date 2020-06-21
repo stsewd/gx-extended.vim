@@ -84,7 +84,9 @@ endfunction
 function! gxext#browse(url)
   if g:gxext#dryrun
     echomsg 'Opening ' . a:url
-  else
+  elseif g:gxext#opencmd == 'gx'
     call netrw#BrowseX(a:url, 0)
+  else
+    call system(g:gxext#opencmd .. ' ' .. shellescape(a:url))
   endif
 endfunction
