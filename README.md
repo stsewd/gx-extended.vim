@@ -1,5 +1,7 @@
 # gx-extended.vim
 
+[![CI](https://github.com/stsewd/gx-extended.vim/workflows/CI/badge.svg)](https://github.com/stsewd/gx-extended.vim/actions?query=workflow%3ACI+branch%3Amaster)
+
 Extend `gx` to use it beyond just URLs!
 
 **Note: this plugin is still under development a lot of things may change!**
