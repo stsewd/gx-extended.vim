@@ -8,13 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Prepare
+      - name: Install Neovim
         run: |
           sudo apt-get update
           sudo add-apt-repository universe
           wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
           chmod u+x nvim.appimage
           sudo mv nvim.appimage /usr/bin/nvim
-          git clone https://github.com/junegunn/vader.vim.git
+      - name: Install Vader
+        run: |
+          git clone --depth=1 https://github.com/junegunn/vader.vim.git
       - name: Execute tests
         run: make test
