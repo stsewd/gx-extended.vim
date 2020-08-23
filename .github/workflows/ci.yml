@@ -14,8 +14,7 @@ jobs:
           sudo add-apt-repository universe
           wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
           chmod u+x nvim.appimage
-          mkdir -p ~/.local/bin/
-          mv nvim.appimage ~/.local/bin/nvim
+          sudo mv nvim.appimage /usr/bin/nvim
           git clone https://github.com/junegunn/vader.vim.git
       - name: Execute tests
         run: make test
