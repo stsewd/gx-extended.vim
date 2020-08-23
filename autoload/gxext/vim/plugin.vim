@@ -16,6 +16,6 @@ function! gxext#vim#plugin#open(line, mode)
   endif
 
   let l:plugin_name = l:match[1]
-  call gxext#browse('https://github.com/' . l:match[1])
+  call gxext#browse('https://github.com/' .. l:match[1])
   return 1
 endfunction

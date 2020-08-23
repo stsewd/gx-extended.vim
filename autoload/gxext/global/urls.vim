@@ -14,7 +14,7 @@ function! gxext#global#urls#open(line, mode)
 
   let l:url = l:match[0]
   if l:url !~? '^https\?://'
-    let l:url = 'https://' . l:match[0]
+    let l:url = 'https://' .. l:match[0]
   endif
   call gxext#browse(l:url)
   return 1

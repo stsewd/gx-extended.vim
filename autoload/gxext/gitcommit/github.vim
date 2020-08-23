@@ -22,7 +22,7 @@ function! gxext#gitcommit#github#open(line, mode)
     return 0
   endif
 
-  let l:url = l:repo_url . '/issues/' . l:id
+  let l:url = l:repo_url .. '/issues/' .. l:id
   call gxext#browse(l:url)
   return 1
 endfunction
@@ -36,7 +36,7 @@ function! s:get_repo_url()
 
   let l:hub = 'hub'
   if executable(l:hub)
-    let l:repo = system(l:hub . ' browse -u')
+    let l:repo = system(l:hub .. ' browse -u')
     let l:repo = substitute(l:repo, '\n', '', 'g')
     return l:repo
   endif
@@ -48,7 +48,7 @@ function! s:get_repo_url()
     if !empty(l:match)
       let l:domain = l:match[1]
       let l:name = l:match[2]
-      return 'https://' . l:domain . '/' . l:name
+      return 'https://' .. l:domain .. '/' .. l:name
     endif
     return l:remote
   endif

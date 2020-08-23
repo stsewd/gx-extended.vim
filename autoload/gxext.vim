@@ -31,7 +31,7 @@ function! gxext#find_handlers() abort
     let l:filetype = l:match[1]
     let l:name = l:match[2]
     let l:list = get(l:handlers, l:filetype, [])
-    call add(l:list, l:filetype..'#'..l:name)
+    call add(l:list, l:filetype .. '#' .. l:name)
 
     let l:handlers[l:filetype] = l:list
   endfor
@@ -54,18 +54,18 @@ function! s:execute_handlers(handlers, mode) abort
 
   for l:handler in a:handlers
     if g:gxext#debug
-      echomsg 'Trying with ' . l:handler
+      echomsg 'Trying with ' .. l:handler
     endif
     try
       if gxext#{l:handler}#open(l:selection, a:mode)
         if g:gxext#debug
-          echomsg 'Open with ' . l:handler
+          echomsg 'Open with ' .. l:handler
         endif
         return
       endif
       continue
     catch /E117/
-      echoerr 'Unavaliable to find ' . 'gxext#' . l:handler . '#open()'
+      echoerr 'Unavailable to find ' .. 'gxext#' .. l:handler .. '#open()'
     endtry
   endfor
 endfunction
@@ -107,7 +107,7 @@ endfunction
 " Wrapper around netrw#BrowseX to make it easy to test
 function! gxext#browse(url)
   if g:gxext#dryrun
-    echomsg 'Opening ' . a:url
+    echomsg 'Opening ' .. a:url
   elseif g:gxext#opencmd == 'gx'
     call netrw#BrowseX(a:url, 0)
   else
