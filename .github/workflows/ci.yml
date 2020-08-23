@@ -1,0 +1,23 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Prepare
+        run: |
+          sudo apt-get update
+          sudo add-apt-repository universe
+          wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+          chmod u+x nvim.appimage
+          mkdir -p ~/.local/share/nvim/site/pack/gx-extended.vim/start
+          ln -s $(pwd) ~/.local/share/nvim/site/pack/gx-extended.vim/start
+      - name: Install Vader
+        run: |
+          git clone https://github.com/junegunn/vader.vim.git
+      - name: Execute tests
+        run: ./nvim.appimage -u tests/init.vim -c 'Vader! tests/**' > /dev/null
