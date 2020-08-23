@@ -1,2 +1,6 @@
+EXTRA_OPTIONS?=
+
 test:
-	nvim --headless -u tests/init.vim -c "Vader! tests/**" > /dev/null
+	nvim $(EXTRA_OPTIONS) -u tests/init.vim -c "Vader! tests/**" > /dev/null
+
+.PHONY: test
