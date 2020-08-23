@@ -1,3 +1,4 @@
+set rtp+=./
 set rtp+=vader.vim
 
 let g:gxext#debug = 1
