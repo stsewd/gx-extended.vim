@@ -1,6 +1,6 @@
 " Handles 'Text #xxx' to open the PR/issue on GitHub
 
-let s:pattern = '\(\w\+\s\+\)\?#\([0-9]\+\)'
+const s:pattern = '\(\w\+\s\+\)\?#\([0-9]\+\)'
 
 function! gxext#gitcommit#github#open(line, mode)
   let l:line = a:line

@@ -1,6 +1,6 @@
 " Handles Markdown links [link](https://google.com)
 
-let s:pattern = '\[.\+\](\(.\+\))'
+const s:pattern = '\[.\+\](\(.\+\))'
 
 function! gxext#markdown#link#open(line, mode)
   let l:line = a:line

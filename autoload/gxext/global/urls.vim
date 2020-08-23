@@ -1,6 +1,6 @@
 " Handles URLs with/without an explicit protocol.
 
-let s:pattern =
+const s:pattern =
       \ '^\(https\?://[a-z0-9].*\)$' ..
       \ '\|^\([a-z0-9-]\+:[0-9]\+\(/.*\)\?\)$' ..
       \ '\|^\(\([a-z0-9-]\+\)\(\.[a-z0-9-]\+\)\+\(:[0-9]\+\)\?\(/.*\)\?\)$'
