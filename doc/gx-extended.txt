@@ -7,6 +7,8 @@ Repo: https://github.com/stsewd/gx-extended.vim
 
 Note: this plugin is still under development a lot of things may change!
 
+                                       Type |gO| to see the table of contents.
+
 ==============================================================================
 
 CONTENT                                                          *gx-extended*
@@ -141,7 +143,9 @@ Dictionary of active handlers (`language#handlername`) per file type.
 The order is respected when executing these handlers.
 Specific file type handlers have priority over `global` handlers.
 
-Default:
+Note: By default all handlers in `autoload/gxext/{language}/{name}.vim` are
+registered automatically, use this setting if you want to have more control
+over which handlers are registered and the order they are executed.
 
 >
     let g:gxext#handlers = {
@@ -152,30 +156,9 @@ Default:
           \}
 <
 
-------------------------------------------------------------------------------
-
-                                                     *g:gxext#custom_handlers*
-g:gxext#custom_handlers~
-
-Dictionary of custom handlers (`language#handlername`).
-Use it if you want to add more handlers without changing the default ones.
-These have priority over the ones listed in |g:gxext#handlers|.
-
-Default:
-
->
-    let g:gxext#custom_handlers = {}
-<
-
 ==============================================================================
 
 WRITING YOUR OWN HANDLER                    *gx-extended-writing-your-handler*
-
-List your handlers in your `init.vim`/`.vimrc`:
-
->
-    let g:gxext#custom_handlers = {'language': 'language#myhandler'}
-<
 
 Create a file in your Vim runtime path `autoload/gxext/language/myhandler.vim`,
 with a function called `open`:

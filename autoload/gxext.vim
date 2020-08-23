@@ -9,10 +9,34 @@ endfunction
 
 
 function! s:get_handlers() abort
-  return get(g:gxext#custom_handlers, &filetype, [])
-        \ + get(g:gxext#handlers, &filetype, [])
-        \ + get(g:gxext#custom_handlers, 'global', [])
+  return get(g:gxext#handlers, &filetype, [])
         \ + get(g:gxext#handlers, 'global', [])
+endfunction
+
+
+function! gxext#find_handlers() abort
+  const l:pattern = 'autoload/gxext/\(.*\)/\(.*\)\.vim$'
+  let l:handlers = {}
+
+  let l:paths = globpath(&runtimepath, 'autoload/gxext/*/*.vim', 0, 1)
+  " TODO: this is a hack to set global#urls before global#gx
+  let l:paths = reverse(sort(l:paths))
+
+  for l:path in l:paths
+    let l:match = matchlist(l:path, l:pattern)
+    if empty(l:match)
+      continue
+    endif
+
+    let l:filetype = l:match[1]
+    let l:name = l:match[2]
+    let l:list = get(l:handlers, l:filetype, [])
+    call add(l:list, l:filetype..'#'..l:name)
+
+    let l:handlers[l:filetype] = l:list
+  endfor
+
+  return l:handlers
 endfunction
 
 

@@ -24,12 +24,6 @@ else
 endif
 let g:gxext#opencmd = get(g:, 'gxext#opencmd', s:opencmd)
 
-let g:gxext#custom_handlers = get(g:, 'gxext#custom_handlers', {})
-let g:gxext#handlers = get(g:, 'gxext#handlers', {
-      \ 'global': ['global#urls', 'global#gx'],
-      \ 'gitcommit': ['gitcommit#github'],
-      \ 'markdown': ['markdown#link'],
-      \ 'vim': ['vim#plugin'],
-      \})
+let g:gxext#handlers = get(g:, 'gxext#handlers', gxext#find_handlers())
 
 let g:loaded_gxext = 1

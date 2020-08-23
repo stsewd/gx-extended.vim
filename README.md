@@ -80,5 +80,4 @@ Opens the GitHub page of the plugin under the cursor. Examples:
 
 - ReStructuredText?
 - requirements.txt?
-- Allow plugins to register their own handlers?
-- Write tests
+- Write more tests
