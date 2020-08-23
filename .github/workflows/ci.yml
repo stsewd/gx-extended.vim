@@ -16,8 +16,6 @@ jobs:
           chmod u+x nvim.appimage
           mkdir -p ~/.local/share/nvim/site/pack/gx-extended.vim/start
           ln -s $(pwd) ~/.local/share/nvim/site/pack/gx-extended.vim/start
-      - name: Install Vader
-        run: |
           git clone https://github.com/junegunn/vader.vim.git
       - name: Execute tests
-        run: ./nvim.appimage -u tests/init.vim -c 'Vader! tests/**' > /dev/null
+        run: ./nvim.appimage -u tests/init.vim -c "Vader! tests/**" > /dev/null
