@@ -1,7 +1,7 @@
 " Replicates the behavior from the original `gx` mapping
 
 function! gxext#global#gx#open(line, mode) abort
-  if !g:gxext#dryrun
+  if g:gxext#dryrun
     return 1
   endif
 
