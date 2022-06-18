@@ -15,7 +15,9 @@ endif
 let g:gxext#debug = get(g:, 'gxext#debug', 0)
 let g:gxext#dryrun = get(g:, 'gxext#dryrun', 0)
 
-if has('mac')
+if has('wsl')
+  let s:opencmd = 'wslview'
+elseif has('mac')
   let s:opencmd = 'open'
 elseif has('unix')
   let s:opencmd = 'xdg-open'
