@@ -1,6 +1,6 @@
 " Handles Plug 'user/repo' to open its GitHub repo.
 
-const s:pattern = '[''"]\([a-zA-Z0-9_.-]\+/[a-zA-Z0-9_.-]\+\)[''"]'
+const s:pattern = '\(Plug\s\+\)\?[''"]\([a-zA-Z0-9_.-]\+/[a-zA-Z0-9_.-]\+\)[''"]'
 
 function! gxext#vim#plugin#open(line, mode)
   let l:line = a:line
@@ -15,7 +15,7 @@ function! gxext#vim#plugin#open(line, mode)
     return 0
   endif
 
-  let l:plugin_name = l:match[1]
-  call gxext#browse('https://github.com/' .. l:match[1])
+  let l:plugin_name = l:match[2]
+  call gxext#browse('https://github.com/' .. l:plugin_name)
   return 1
 endfunction
