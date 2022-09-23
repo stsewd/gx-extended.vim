@@ -19,8 +19,8 @@ function! gxext#find_handlers() abort
   let l:handlers = {}
 
   let l:paths = globpath(&runtimepath, 'autoload/gxext/*/*.vim', 0, 1)
-  " TODO: this is a hack to set global#urls before global#gx
-  let l:paths = reverse(sort(l:paths))
+  " TODO: let each handler set an explicit priority, and use that to do the sorting.
+  let l:paths = sort(l:paths)
 
   for l:path in l:paths
     let l:match = matchlist(l:path, l:pattern)
@@ -36,6 +36,11 @@ function! gxext#find_handlers() abort
     let l:handlers[l:filetype] = l:list
   endfor
 
+  " make sure global#gx is at the end of the global handler list
+  let l:list = get(l:handlers, 'global', [])
+  let l:newlist = filter(copy(l:list), 'v:val != ' .. "'global#gx'")
+  call add(l:newlist, 'global#gx')
+  let l:handlers['global'] = l:newlist
   return l:handlers
 endfunction
 
