@@ -19,7 +19,7 @@ function! gxext#find_handlers() abort
   let l:handlers = {}
 
   let l:paths = globpath(&runtimepath, 'autoload/gxext/*/*.vim', 0, 1)
-  # TODO: let each handler set an explicit priority, and use that to do the sorting.
+  " TODO: let each handler set an explicit priority, and use that to do the sorting.
   let l:paths = sort(l:paths)
 
   for l:path in l:paths
