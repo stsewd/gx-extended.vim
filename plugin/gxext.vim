@@ -8,8 +8,8 @@ vnoremap <unique><silent> <Plug>(gxext-visual) :<C-U>call gxext#visual()<CR>
 if maparg('gx','n') == '' && !hasmapto('<Plug>(gxext-normal)')
   nmap gx <Plug>(gxext-normal)
 endif
-if maparg('gx', 'v') == '' && !hasmapto('<Plug>(gxext-visual)')
-  vmap gx <Plug>(gxext-visual)
+if maparg('gx', 'x') == '' && !hasmapto('<Plug>(gxext-visual)')
+  xmap gx <Plug>(gxext-visual)
 endif
 
 let g:gxext#debug = get(g:, 'gxext#debug', 0)
