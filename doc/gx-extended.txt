@@ -115,7 +115,7 @@ If you don't define these mappings, `gx` is used by default.
 
 >
     nmap gx <Plug>(gxext-normal)
-    vmap gx <Plug>(gxext-visual)
+    xmap gx <Plug>(gxext-visual)
 <
 
 ==============================================================================
